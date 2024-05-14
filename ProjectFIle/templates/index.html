@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Filter Project</title>
+</head>
+<body>
+    <h1>Enter your Details</h1>
+    <form id="inputForm">
+        <label for="input1">Enter your name:</label>
+        <input type="text" id="input1" name="input1" placeholder="Enter name"><br><br>
+        <label for="input2">Enter your Father's name:</label>
+        <input type="text" id="input2" name="input2" placeholder="Enter Father's name"><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="result"></div>
+
+     <script>
+        document.getElementById('inputForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            var formData = new FormData(this); // Get form data
+            fetch('/run_script', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("result").innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
